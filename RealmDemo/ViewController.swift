@@ -76,8 +76,34 @@ class ViewController: UIViewController {
         
         self.tableView.reloadData()
         
+        self.animatedTable()
+        
     }
     
+    //cell显示动画；
+    private func animatedTable(){
+        
+        let cells = tableView.visibleCells
+        let tabHeight = tableView.bounds.size.height
+        cells.forEach { (ce) in
+            
+            ce.transform = CGAffineTransform.init(translationX: 0, y: tabHeight)
+            
+        }
+        
+        var index = 0
+        cells.forEach { (ce) in
+            
+            UIView.animate(withDuration: 1, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+                
+                ce.transform = CGAffineTransform.init(translationX: 0, y: 0)
+                
+            }, completion: nil)
+         
+            index += 1
+            
+        }
+    }
     
     @IBAction func addTask(_ sender: Any) {
         
